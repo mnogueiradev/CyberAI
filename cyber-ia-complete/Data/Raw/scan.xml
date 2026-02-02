@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nmaprun>
+<?xml-stylesheet href="file:///C:/Program Files (x86)/Nmap/nmap.xsl" type="text/xsl"?>
+<!-- Nmap 7.97 scan initiated Mon Oct 13 22:00:28 2025 as: &quot;C:\\Program Files (x86)\\Nmap\\nmap.exe&quot; -sS -p 1-1024 -oX C:\\Users\\Alison\\Downloads\\cyber-ia-complete\\data\\raw\\scan.xml 192.168.24.1 -->
+<nmaprun scanner="nmap" args="&quot;C:\\Program Files (x86)\\Nmap\\nmap.exe&quot; -sS -p 1-1024 -oX C:\\Users\\Alison\\Downloads\\cyber-ia-complete\\data\\raw\\scan.xml 192.168.24.1" start="1760403628" startstr="Mon Oct 13 22:00:28 2025" version="7.97" xmloutputversion="1.05">
+<scaninfo type="syn" protocol="tcp" numservices="1024" services="1-1024"/>
+<verbose level="0"/>
+<debugging level="0"/>
+<hosthint><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.24.1" addrtype="ipv4"/>
+<address addr="0C:F0:B4:B7:2B:22" addrtype="mac" vendor="Globalsat International Technology"/>
+<hostnames>
+</hostnames>
+</hosthint>
+<host starttime="1760403631" endtime="1760403646"><status state="up" reason="arp-response" reason_ttl="0"/>
+<address addr="192.168.24.1" addrtype="ipv4"/>
+<address addr="0C:F0:B4:B7:2B:22" addrtype="mac" vendor="Globalsat International Technology"/>
+<hostnames>
+<hostname name="RTK_GW.bbrouter" type="PTR"/>
+</hostnames>
+<ports><extraports state="closed" count="1018">
+<extrareasons reason="reset" count="1018" proto="tcp" ports="1-20,22,24-52,54-79,81-138,140-444,446-1024"/>
+</extraports>
+<port protocol="tcp" portid="21"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="ftp" method="table" conf="3"/></port>
+<port protocol="tcp" portid="23"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="telnet" method="table" conf="3"/></port>
+<port protocol="tcp" portid="53"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="domain" method="table" conf="3"/></port>
+<port protocol="tcp" portid="80"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="http" method="table" conf="3"/></port>
+<port protocol="tcp" portid="139"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="netbios-ssn" method="table" conf="3"/></port>
+<port protocol="tcp" portid="445"><state state="open" reason="syn-ack" reason_ttl="64"/><service name="microsoft-ds" method="table" conf="3"/></port>
+</ports>
+<times srtt="31243" rttvar="16680" to="100000"/>
+</host>
+<runstats><finished time="1760403646" timestr="Mon Oct 13 22:00:46 2025" summary="Nmap done at Mon Oct 13 22:00:46 2025; 1 IP address (1 host up) scanned in 18.31 seconds" elapsed="18.31" exit="success"/><hosts up="1" down="0" total="1"/>
+</runstats>
+</nmaprun>
