@@ -9,8 +9,8 @@ from sklearn.preprocessing import StandardScaler
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 DATA_PATH = os.path.join(BASE_DIR, "data", "processed", "features.csv")
 REPORTS_PATH = os.path.join(BASE_DIR, "reports")
-MODEL_IF = os.path.join(BASE_DIR, "models", "isolation_forest.joblib")
-MODEL_AE = os.path.join(BASE_DIR, "models", "autoencoder")
+MODEL_IF = os.path.join(BASE_DIR, "models", "isof.joblib")
+MODEL_AE = os.path.join(BASE_DIR, "models", "auto_model.keras")
 SCALER_PATH = os.path.join(BASE_DIR, "models", "scaler.joblib")
 
 os.makedirs(REPORTS_PATH, exist_ok=True)
@@ -19,9 +19,23 @@ print("Carregando dados...")
 df = pd.read_csv(DATA_PATH)
 
 # Carregar modelos
-iso = joblib.load(MODEL_IF)
+iso_obj = joblib.load(MODEL_IF)
+if isinstance(iso_obj, dict):
+    iso = iso_obj['model']
+else:
+    iso = iso_obj
 autoencoder = tf.keras.models.load_model(MODEL_AE)
-scaler = joblib.load(SCALER_PATH)
+
+# Criar scaler se não existir
+if os.path.exists(SCALER_PATH):
+    scaler = joblib.load(SCALER_PATH)
+else:
+    print("Criando scaler...")
+    from sklearn.preprocessing import StandardScaler
+    scaler = StandardScaler()
+    scaler.fit(df.select_dtypes(include=[np.number]).fillna(0).values)
+    joblib.dump(scaler, SCALER_PATH)
+    print(f"Scaler salvo em {SCALER_PATH}")
 
 # Normalizar
 X = scaler.transform(df)

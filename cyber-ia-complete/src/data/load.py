@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) 
 
 RAW_PATH = os.path.join(BASE_DIR, "data", "datasets", "unsw_nb15", "csv")
 PROCESSED_PATH = os.path.join(BASE_DIR, "data", "processed")
