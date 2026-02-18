@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8000/api';
+const API_BASE_URL = 'http://localhost:8000';
 
 const api = axios.create({
   baseURL: API_BASE_URL,
@@ -10,8 +10,27 @@ const api = axios.create({
 export const apiService = {
   // Dashboard
   async getNetworkStatus() {
-    const response = await api.get('/dashboard/status');
-    return response.data;
+    try {
+      const [summaryResponse, resultsResponse] = await Promise.all([
+        api.get('/summary'),
+        api.get('/results')
+      ]);
+      
+      const summary = summaryResponse.data;
+      const results = resultsResponse.data;
+      
+      // Transformar dados para o formato esperado pelo Dashboard
+      return {
+        status: summary.anomalies_detected > 0 ? 'warning' : 'safe',
+        hostsMonitored: results.length || 0,
+        threatsDetected: summary.anomalies_detected || 0,
+        trafficPerSecond: Math.floor(Math.random() * 1000) + 500, // Mock
+        topProtocols: ['HTTP', 'HTTPS', 'TCP', 'UDP', 'DNS']
+      };
+    } catch (error) {
+      console.error('Error fetching network status:', error);
+      throw error;
+    }
   },
 
   // Monitoramento
@@ -27,9 +46,29 @@ export const apiService = {
 
   // Alertas
   async getAlerts(severity) {
-    const params = severity ? { severity } : {};
-    const response = await api.get('/alerts', { params });
-    return response.data;
+    try {
+      const response = await api.get('/alerts');
+      const alerts = response.data.alerts || [];
+      
+      // Filtrar por severity se especificado
+      const filteredAlerts = severity 
+        ? alerts.filter(alert => {
+            if (severity === 'high') return alert.combined_flag === 1;
+            return true;
+          })
+        : alerts;
+      
+      // Transformar para o formato esperado
+      return filteredAlerts.map((alert, index) => ({
+        id: index + 1,
+        ip: alert.src_ip,
+        anomalyType: alert.anomaly_type || 'Unknown',
+        severity: alert.combined_flag === 1 ? 'high' : 'low'
+      }));
+    } catch (error) {
+      console.error('Error fetching alerts:', error);
+      return [];
+    }
   },
 
   async getAlertCount() {

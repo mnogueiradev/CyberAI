@@ -3,14 +3,15 @@ import Dashboard from './components/Dashboard';
 
 const App = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [sidebarOpen, setSidebarOpen] = useState(true);
 
   const navigation = [
-    { id: 'dashboard', name: '🏠 Dashboard', icon: '🏠' },
-    { id: 'monitoring', name: '🌐 Monitoramento', icon: '🌐' },
-    { id: 'alerts', name: '⚠️ Alertas', icon: '⚠️' },
-    { id: 'analysis', name: '📈 Análise', icon: '📈' },
-    { id: 'reports', name: '📄 Relatórios', icon: '📄' },
-    { id: 'settings', name: '⚙️ Config', icon: '⚙️' },
+    { id: 'dashboard', name: 'Dashboard', icon: '🏠' },
+    { id: 'monitoring', name: 'Monitoramento', icon: '🌐' },
+    { id: 'alerts', name: 'Alertas', icon: '⚠️' },
+    { id: 'analysis', name: 'Análise', icon: '📈' },
+    { id: 'reports', name: 'Relatórios', icon: '📄' },
+    { id: 'settings', name: 'Configurações', icon: '⚙️' },
   ];
 
   const getCurrentTime = () => {
@@ -34,136 +35,322 @@ const App = () => {
   }, []);
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#1E1E1E' }}>
-      {/* Header Kaspersky-style */}
-      <header className="cyber-header">
-        <div className="container">
-          <div className="flex">
-            {/* Logo e Nome */}
-            <div className="flex space-x-3">
-              <div className="logo-icon">
-                <svg className="w-6 h-6" style={{ color: '#00A652' }} fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd"/>
-                </svg>
-              </div>
-              <div>
-                <h1 style={{ color: 'white', fontWeight: 'bold', fontSize: '1.125rem' }}>CYBER IA</h1>
-                <p style={{ color: '#00A652', fontSize: '0.75rem', fontWeight: '500' }}>PROTEÇÃO ATIVA</p>
-              </div>
+    <div style={{ 
+      minHeight: '100vh', 
+      backgroundColor: '#0F172A',
+      fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+    }}>
+      {/* Sidebar */}
+      <aside style={{
+        position: 'fixed',
+        left: 0,
+        top: 0,
+        height: '100vh',
+        width: sidebarOpen ? '260px' : '70px',
+        backgroundColor: '#1E293B',
+        borderRight: '1px solid #334155',
+        transition: 'width 0.3s ease',
+        zIndex: 1000
+      }}>
+        {/* Logo */}
+        <div style={{
+          padding: '1.5rem',
+          borderBottom: '1px solid #334155',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.75rem'
+        }}>
+          <div style={{
+            width: '32px',
+            height: '32px',
+            backgroundColor: '#3B82F6',
+            borderRadius: '8px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: 'white',
+            fontWeight: 'bold',
+            fontSize: '14px'
+          }}>
+            IA
+          </div>
+          {sidebarOpen && (
+            <div>
+              <h3 style={{ 
+                color: '#F1F5F9', 
+                margin: 0,
+                fontSize: '1.125rem',
+                fontWeight: '600'
+              }}>
+                Cyber IA
+              </h3>
+              <p style={{ 
+                color: '#94A3B8', 
+                margin: '2px 0 0 0',
+                fontSize: '0.75rem'
+              }}>
+                Security Platform
+              </p>
             </div>
+          )}
+        </div>
 
-            {/* Data/Hora */}
-            <div style={{ display: 'none' }} className="hidden md:block">
-              <div style={{ color: 'white', fontSize: '0.875rem', fontWeight: '500' }}>{currentTime}</div>
-            </div>
+        {/* Navigation */}
+        <nav style={{ padding: '1rem 0' }}>
+          {navigation.map((item) => (
+            <button
+              key={item.id}
+              onClick={() => setActiveTab(item.id)}
+              style={{
+                width: '100%',
+                padding: sidebarOpen ? '0.875rem 1.5rem' : '0.875rem',
+                border: 'none',
+                backgroundColor: activeTab === item.id ? '#3B82F6' : 'transparent',
+                color: activeTab === item.id ? '#FFFFFF' : '#94A3B8',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: sidebarOpen ? '0.75rem' : '0',
+                fontSize: '0.875rem',
+                fontWeight: '500',
+                transition: 'all 0.2s ease',
+                borderRadius: sidebarOpen ? '0.5rem' : '0',
+                margin: sidebarOpen ? '0 0.5rem 0.25rem 0.5rem' : '0',
+                justifyContent: sidebarOpen ? 'flex-start' : 'center'
+              }}
+              onMouseEnter={(e) => {
+                if (activeTab !== item.id) {
+                  e.target.style.backgroundColor = '#374151';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (activeTab !== item.id) {
+                  e.target.style.backgroundColor = 'transparent';
+                }
+              }}
+            >
+              <span style={{ fontSize: '1.25rem' }}>{item.icon}</span>
+              {sidebarOpen && <span>{item.name}</span>}
+            </button>
+          ))}
+        </nav>
 
-            {/* Status de Proteção */}
-            <div className="flex space-x-4">
-              <div className="flex space-x-2">
-                <div style={{ 
-                  width: '0.5rem', 
-                  height: '0.5rem', 
-                  backgroundColor: '#00A652', 
-                  borderRadius: '50%',
-                  animation: 'pulse-slow 3s ease-in-out infinite'
-                }}></div>
-                <span style={{ color: 'white', fontSize: '0.875rem', fontWeight: '500' }}>Proteção Ativa</span>
-              </div>
-              <div style={{ 
-                width: '2rem', 
-                height: '2rem', 
-                backgroundColor: 'rgba(255, 255, 255, 0.2)', 
+        {/* Toggle Button */}
+        <button
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          style={{
+            position: 'absolute',
+            bottom: '1.5rem',
+            right: '1rem',
+            width: '40px',
+            height: '40px',
+            borderRadius: '50%',
+            backgroundColor: '#374151',
+            border: '1px solid #4B5563',
+            color: '#9CA3AF',
+            cursor: 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'all 0.2s ease'
+          }}
+          onMouseEnter={(e) => {
+            e.target.style.backgroundColor = '#4B5563';
+            e.target.style.color = '#F1F5F9';
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.backgroundColor = '#374151';
+            e.target.style.color = '#9CA3AF';
+          }}
+        >
+          <svg width="20" height="20" fill="currentColor" viewBox="0 0 20 20">
+            <path fillRule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clipRule="evenodd"/>
+          </svg>
+        </button>
+      </aside>
+
+      {/* Main Content */}
+      <div style={{
+        marginLeft: sidebarOpen ? '260px' : '70px',
+        minHeight: '100vh',
+        transition: 'margin-left 0.3s ease'
+      }}>
+        {/* Top Header */}
+        <header style={{
+          backgroundColor: '#1E293B',
+          borderBottom: '1px solid #334155',
+          padding: '1rem 2rem',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <h1 style={{ 
+              color: '#F1F5F9', 
+              margin: 0,
+              fontSize: '1.5rem',
+              fontWeight: '600'
+            }}>
+              {navigation.find(item => item.id === activeTab)?.name || 'Dashboard'}
+            </h1>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              padding: '0.25rem 0.75rem',
+              backgroundColor: '#10B981',
+              borderRadius: '9999px',
+              color: 'white',
+              fontSize: '0.75rem',
+              fontWeight: '500'
+            }}>
+              <div style={{
+                width: '8px',
+                height: '8px',
                 borderRadius: '50%',
+                backgroundColor: '#34D399',
+                animation: 'pulse 2s ease-in-out infinite'
+              }}></div>
+              Sistema Ativo
+            </div>
+          </div>
+          
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+            <div style={{ 
+              color: '#9CA3AF', 
+              fontSize: '0.875rem',
+              fontWeight: '500'
+            }}>
+              {currentTime}
+            </div>
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              padding: '0.5rem 1rem',
+              backgroundColor: '#374151',
+              borderRadius: '0.5rem',
+              border: '1px solid #4B5563'
+            }}>
+              <div style={{
+                width: '32px',
+                height: '32px',
+                borderRadius: '50%',
+                backgroundColor: '#6B7280',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center'
               }}>
-                <svg style={{ width: '1.25rem', height: '1.25rem', color: 'white' }} fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clipRule="evenodd"/>
+                <svg width="16" height="16" fill="#D1D5DB" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0 7 7 0 01-14 0z" clipRule="evenodd"/>
                 </svg>
               </div>
+              <span style={{ color: '#D1D5DB', fontSize: '0.875rem' }}>Admin</span>
             </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      {/* Navigation */}
-      <nav>
-        <div className="container">
-          <div className="nav-items">
-            {navigation.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => setActiveTab(item.id)}
-                className={`nav-item ${activeTab === item.id ? 'active' : ''}`}
-              >
-                <span style={{ marginRight: '0.5rem' }}>{item.icon}</span>
-                {item.name}
-              </button>
-            ))}
-          </div>
-        </div>
-      </nav>
-
-      {/* Main Content */}
-      <main className="container" style={{ padding: '1.5rem 0' }}>
-        {activeTab === 'dashboard' && <Dashboard />}
-        
-        {activeTab === 'monitoring' && (
-          <div className="cyber-card p-8">
-            <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'white', marginBottom: '1rem' }}>Monitoramento de Rede</h2>
-            <p style={{ color: '#D1D5DB' }}>Monitoramento em desenvolvimento...</p>
-          </div>
-        )}
-        
-        {activeTab === 'alerts' && (
-          <div className="cyber-card p-8">
-            <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'white', marginBottom: '1rem' }}>Painel de Alertas</h2>
-            <p style={{ color: '#D1D5DB' }}>Alertas em desenvolvimento...</p>
-          </div>
-        )}
-        
-        {activeTab === 'analysis' && (
-          <div className="cyber-card p-8">
-            <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'white', marginBottom: '1rem' }}>Análise Avançada</h2>
-            <p style={{ color: '#D1D5DB' }}>Análise em desenvolvimento...</p>
-          </div>
-        )}
-        
-        {activeTab === 'reports' && (
-          <div className="cyber-card p-8">
-            <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'white', marginBottom: '1rem' }}>Relatórios</h2>
-            <p style={{ color: '#D1D5DB' }}>Relatórios em desenvolvimento...</p>
-          </div>
-        )}
-        
-        {activeTab === 'settings' && (
-          <div className="cyber-card p-8">
-            <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'white', marginBottom: '1rem' }}>Configurações</h2>
-            <p style={{ color: '#D1D5DB' }}>Configurações em desenvolvimento...</p>
-          </div>
-        )}
-      </main>
-
-      {/* Footer */}
-      <footer>
-        <div className="container">
-          <div className="flex">
-            <div style={{ color: '#9CA3AF', fontSize: '0.875rem' }}>
-              © 2026 Cyber IA - Network Security Analysis
+        {/* Page Content */}
+        <main style={{ padding: '2rem' }}>
+          {activeTab === 'dashboard' && <Dashboard />}
+          
+          {activeTab === 'monitoring' && (
+            <div style={{
+              backgroundColor: '#1E293B',
+              borderRadius: '0.75rem',
+              padding: '2rem',
+              border: '1px solid #334155'
+            }}>
+              <h2 style={{ fontSize: '1.5rem', fontWeight: '600', color: '#F1F5F9', marginBottom: '1rem' }}>
+                Monitoramento de Rede
+              </h2>
+              <p style={{ color: '#9CA3AF', lineHeight: '1.6' }}>
+                Monitoramento em desenvolvimento...
+              </p>
             </div>
-            <div className="flex space-x-4">
-              <div style={{ color: '#9CA3AF', fontSize: '0.875rem' }}>
-                Versão 1.0.0
-              </div>
-              <div className="flex space-x-1">
-                <div style={{ width: '0.5rem', height: '0.5rem', backgroundColor: '#00A652', borderRadius: '50%' }}></div>
-                <span style={{ color: '#00A652', fontSize: '0.875rem', fontWeight: '500' }}>Online</span>
-              </div>
+          )}
+          
+          {activeTab === 'alerts' && (
+            <div style={{
+              backgroundColor: '#1E293B',
+              borderRadius: '0.75rem',
+              padding: '2rem',
+              border: '1px solid #334155'
+            }}>
+              <h2 style={{ fontSize: '1.5rem', fontWeight: '600', color: '#F1F5F9', marginBottom: '1rem' }}>
+                Painel de Alertas
+              </h2>
+              <p style={{ color: '#9CA3AF', lineHeight: '1.6' }}>
+                Alertas em desenvolvimento...
+              </p>
             </div>
-          </div>
-        </div>
-      </footer>
+          )}
+          
+          {activeTab === 'analysis' && (
+            <div style={{
+              backgroundColor: '#1E293B',
+              borderRadius: '0.75rem',
+              padding: '2rem',
+              border: '1px solid #334155'
+            }}>
+              <h2 style={{ fontSize: '1.5rem', fontWeight: '600', color: '#F1F5F9', marginBottom: '1rem' }}>
+                Análise Avançada
+              </h2>
+              <p style={{ color: '#9CA3AF', lineHeight: '1.6' }}>
+                Análise em desenvolvimento...
+              </p>
+            </div>
+          )}
+          
+          {activeTab === 'reports' && (
+            <div style={{
+              backgroundColor: '#1E293B',
+              borderRadius: '0.75rem',
+              padding: '2rem',
+              border: '1px solid #334155'
+            }}>
+              <h2 style={{ fontSize: '1.5rem', fontWeight: '600', color: '#F1F5F9', marginBottom: '1rem' }}>
+                Relatórios
+              </h2>
+              <p style={{ color: '#9CA3AF', lineHeight: '1.6' }}>
+                Relatórios em desenvolvimento...
+              </p>
+            </div>
+          )}
+          
+          {activeTab === 'settings' && (
+            <div style={{
+              backgroundColor: '#1E293B',
+              borderRadius: '0.75rem',
+              padding: '2rem',
+              border: '1px solid #334155'
+            }}>
+              <h2 style={{ fontSize: '1.5rem', fontWeight: '600', color: '#F1F5F9', marginBottom: '1rem' }}>
+                Configurações
+              </h2>
+              <p style={{ color: '#9CA3AF', lineHeight: '1.6' }}>
+                Configurações em desenvolvimento...
+              </p>
+            </div>
+          )}
+        </main>
+      </div>
+
+      {/* Global Styles */}
+      <style jsx>{`
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.5; }
+        }
+        
+        button:hover {
+          transform: translateY(-1px);
+        }
+        
+        * {
+          box-sizing: border-box;
+        }
+      `}</style>
     </div>
   );
 };
