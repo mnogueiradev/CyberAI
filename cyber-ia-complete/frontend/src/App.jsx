@@ -1,5 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Dashboard from './components/Dashboard';
+import Monitoring from './components/Monitoring';
+import Alerts from './components/Alerts';
+import Analysis from './components/Analysis';
+import Reports from './components/Reports';
+import Settings from './components/Settings';
+import './index.css';
 
 const App = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
@@ -254,85 +260,15 @@ const App = () => {
         <main style={{ padding: '2rem' }}>
           {activeTab === 'dashboard' && <Dashboard />}
           
-          {activeTab === 'monitoring' && (
-            <div style={{
-              backgroundColor: '#1E293B',
-              borderRadius: '0.75rem',
-              padding: '2rem',
-              border: '1px solid #334155'
-            }}>
-              <h2 style={{ fontSize: '1.5rem', fontWeight: '600', color: '#F1F5F9', marginBottom: '1rem' }}>
-                Monitoramento de Rede
-              </h2>
-              <p style={{ color: '#9CA3AF', lineHeight: '1.6' }}>
-                Monitoramento em desenvolvimento...
-              </p>
-            </div>
-          )}
+          {activeTab === 'monitoring' && <Monitoring />}
           
-          {activeTab === 'alerts' && (
-            <div style={{
-              backgroundColor: '#1E293B',
-              borderRadius: '0.75rem',
-              padding: '2rem',
-              border: '1px solid #334155'
-            }}>
-              <h2 style={{ fontSize: '1.5rem', fontWeight: '600', color: '#F1F5F9', marginBottom: '1rem' }}>
-                Painel de Alertas
-              </h2>
-              <p style={{ color: '#9CA3AF', lineHeight: '1.6' }}>
-                Alertas em desenvolvimento...
-              </p>
-            </div>
-          )}
+          {activeTab === 'alerts' && <Alerts />}
           
-          {activeTab === 'analysis' && (
-            <div style={{
-              backgroundColor: '#1E293B',
-              borderRadius: '0.75rem',
-              padding: '2rem',
-              border: '1px solid #334155'
-            }}>
-              <h2 style={{ fontSize: '1.5rem', fontWeight: '600', color: '#F1F5F9', marginBottom: '1rem' }}>
-                Análise Avançada
-              </h2>
-              <p style={{ color: '#9CA3AF', lineHeight: '1.6' }}>
-                Análise em desenvolvimento...
-              </p>
-            </div>
-          )}
+          {activeTab === 'analysis' && <Analysis />}
           
-          {activeTab === 'reports' && (
-            <div style={{
-              backgroundColor: '#1E293B',
-              borderRadius: '0.75rem',
-              padding: '2rem',
-              border: '1px solid #334155'
-            }}>
-              <h2 style={{ fontSize: '1.5rem', fontWeight: '600', color: '#F1F5F9', marginBottom: '1rem' }}>
-                Relatórios
-              </h2>
-              <p style={{ color: '#9CA3AF', lineHeight: '1.6' }}>
-                Relatórios em desenvolvimento...
-              </p>
-            </div>
-          )}
+          {activeTab === 'reports' && <Reports />}
           
-          {activeTab === 'settings' && (
-            <div style={{
-              backgroundColor: '#1E293B',
-              borderRadius: '0.75rem',
-              padding: '2rem',
-              border: '1px solid #334155'
-            }}>
-              <h2 style={{ fontSize: '1.5rem', fontWeight: '600', color: '#F1F5F9', marginBottom: '1rem' }}>
-                Configurações
-              </h2>
-              <p style={{ color: '#9CA3AF', lineHeight: '1.6' }}>
-                Configurações em desenvolvimento...
-              </p>
-            </div>
-          )}
+          {activeTab === 'settings' && <Settings />}
         </main>
       </div>
 
