@@ -12,13 +12,25 @@ const App = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   const navigation = [
-    { id: 'dashboard', name: 'Dashboard', icon: '🏠' },
-    { id: 'monitoring', name: 'Monitoramento', icon: '🌐' },
-    { id: 'alerts', name: 'Alertas', icon: '⚠️' },
-    { id: 'analysis', name: 'Análise', icon: '📈' },
-    { id: 'reports', name: 'Relatórios', icon: '📄' },
-    { id: 'settings', name: 'Configurações', icon: '⚙️' },
+    { id: 'dashboard', name: 'Dashboard', icon: 'dashboard' },
+    { id: 'monitoring', name: 'Monitoramento', icon: 'network' },
+    { id: 'alerts', name: 'Alertas', icon: 'warning' },
+    { id: 'analysis', name: 'Análise', icon: 'analytics' },
+    { id: 'reports', name: 'Relatórios', icon: 'document' },
+    { id: 'settings', name: 'Configurações', icon: 'settings' }
   ];
+
+  const getIcon = (iconName) => {
+    switch (iconName) {
+      case 'dashboard': return '▣';
+      case 'network': return '◉';
+      case 'warning': return '▲';
+      case 'analytics': return '▓';
+      case 'document': return '◈';
+      case 'settings': return '◉';
+      default: return '○';
+    }
+  };
 
   const getCurrentTime = () => {
     return new Date().toLocaleString('pt-BR', {
@@ -135,7 +147,7 @@ const App = () => {
                 }
               }}
             >
-              <span style={{ fontSize: '1.25rem' }}>{item.icon}</span>
+              <span style={{ fontSize: '1.25rem' }}>{getIcon(item.icon)}</span>
               {sidebarOpen && <span>{item.name}</span>}
             </button>
           ))}
@@ -151,9 +163,10 @@ const App = () => {
             width: '40px',
             height: '40px',
             borderRadius: '50%',
-            backgroundColor: '#374151',
-            border: '1px solid #4B5563',
-            color: '#9CA3AF',
+            backgroundColor: '#1E293B',
+            border: '1px solid #334155',
+            color: '#F1F5F9',
+            fontSize: '1.25rem',
             cursor: 'pointer',
             display: 'flex',
             alignItems: 'center',

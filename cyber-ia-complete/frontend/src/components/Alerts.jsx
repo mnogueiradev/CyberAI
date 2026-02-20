@@ -80,13 +80,13 @@ const Alerts = () => {
   const getSeverityIcon = (severity) => {
     switch (severity) {
       case 'high':
-        return '🚨';
+        return '■';
       case 'medium':
-        return '⚠️';
+        return '▲';
       case 'low':
-        return 'ℹ️';
+        return '○';
       default:
-        return '❓';
+        return '?';
     }
   };
 
@@ -169,7 +169,7 @@ const Alerts = () => {
             onMouseOver={(e) => e.target.style.backgroundColor = '#2563EB'}
             onMouseOut={(e) => e.target.style.backgroundColor = '#3B82F6'}
           >
-            🔄 Atualizar
+            Atualizar
           </button>
         </div>
 
@@ -215,7 +215,7 @@ const Alerts = () => {
               {alertStats.high}
             </div>
             <div style={{ color: '#EF4444', fontSize: '0.875rem' }}>
-              🚨 Alertas Críticos
+              Alertas Críticos
             </div>
           </div>
 
@@ -235,7 +235,7 @@ const Alerts = () => {
               {alertStats.medium}
             </div>
             <div style={{ color: '#F59E0B', fontSize: '0.875rem' }}>
-              ⚠️ Alertas Médios
+              Alertas Médios
             </div>
           </div>
 
@@ -318,7 +318,7 @@ const Alerts = () => {
             textAlign: 'center',
             color: '#9CA3AF'
           }}>
-            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🔍</div>
+            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>◉</div>
             <p style={{ fontSize: '1.125rem', marginBottom: '0.5rem' }}>
               Nenhum alerta encontrado
             </p>
@@ -464,7 +464,7 @@ const Alerts = () => {
                   cursor: 'pointer'
                 }}
               >
-                ✕
+                ×
               </button>
             </div>
 

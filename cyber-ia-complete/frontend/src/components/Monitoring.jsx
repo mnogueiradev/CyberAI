@@ -55,13 +55,13 @@ const Monitoring = () => {
   const getStatusIcon = (status) => {
     switch (status) {
       case 'safe':
-        return '✅';
+        return '◉';
       case 'suspicious':
-        return '⚠️';
+        return '▲';
       case 'dangerous':
-        return '🚨';
+        return '■';
       default:
-        return '❓';
+        return '○';
     }
   };
 
@@ -128,7 +128,7 @@ const Monitoring = () => {
           onMouseOver={(e) => e.target.style.backgroundColor = '#2563EB'}
           onMouseOut={(e) => e.target.style.backgroundColor = '#3B82F6'}
         >
-          🔄 Atualizar
+          Atualizar
         </button>
       </div>
 
@@ -343,7 +343,7 @@ const Monitoring = () => {
                   cursor: 'pointer'
                 }}
               >
-                ✕
+                ×
               </button>
             </div>
 

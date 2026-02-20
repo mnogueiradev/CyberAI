@@ -184,12 +184,12 @@ const Reports = () => {
 
   const getTypeIcon = (type) => {
     switch (type) {
-      case 'summary': return '📊';
-      case 'alerts': return '🚨';
-      case 'hosts': return '🌐';
-      case 'protocols': return '🔗';
-      case 'performance': return '⚡';
-      default: return '📄';
+      case 'summary': return '▓';
+      case 'alerts': return '■';
+      case 'hosts': return '◉';
+      case 'protocols': return '◈';
+      case 'performance': return '▲';
+      default: return '○';
     }
   };
 
@@ -280,7 +280,7 @@ const Reports = () => {
           onMouseOver={(e) => e.target.style.backgroundColor = '#059669'}
           onMouseOut={(e) => e.target.style.backgroundColor = '#10B981'}
         >
-          🔄 Atualizar Relatórios
+          Atualizar Relatórios
         </button>
       </div>
 
@@ -327,7 +327,7 @@ const Reports = () => {
             {reports.filter(r => r.status === 'completed').length}
           </div>
           <div style={{ color: '#10B981', fontSize: '0.875rem' }}>
-            ✅ Concluídos
+            Concluídos
           </div>
         </div>
 
@@ -347,7 +347,7 @@ const Reports = () => {
             {reports.reduce((sum, r) => sum + parseFloat(r.size), 0).toFixed(1)} KB
           </div>
           <div style={{ color: '#3B82F6', fontSize: '0.875rem' }}>
-            📊 Tamanho Total
+            Tamanho Total
           </div>
         </div>
       </div>
@@ -412,7 +412,7 @@ const Reports = () => {
             borderRadius: '0.75rem',
             color: '#9CA3AF'
           }}>
-            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>📋</div>
+            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>◈</div>
             <p style={{ fontSize: '1.125rem', marginBottom: '0.5rem' }}>
               Nenhum relatório encontrado
             </p>
@@ -507,7 +507,7 @@ const Reports = () => {
                 alignItems: 'center' 
               }}>
                 <div style={{ color: '#9CA3AF', fontSize: '0.875rem' }}>
-                  📅 {formatDate(report.date)}
+                  {formatDate(report.date)}
                 </div>
                 
                 <div style={{ display: 'flex', gap: '0.5rem' }}>
@@ -530,7 +530,7 @@ const Reports = () => {
                     onMouseOver={(e) => e.target.style.backgroundColor = '#059669'}
                     onMouseOut={(e) => e.target.style.backgroundColor = '#10B981'}
                   >
-                    📥 Download
+                    Download
                   </button>
                   
                   <button
@@ -552,7 +552,7 @@ const Reports = () => {
                     onMouseOver={(e) => e.target.style.backgroundColor = '#2563EB'}
                     onMouseOut={(e) => e.target.style.backgroundColor = '#3B82F6'}
                   >
-                    👁️ Visualizar
+                    Visualizar
                   </button>
                 </div>
               </div>
@@ -616,7 +616,7 @@ const Reports = () => {
                   cursor: 'pointer'
                 }}
               >
-                ✕
+                ×
               </button>
             </div>
 
@@ -727,7 +727,7 @@ const Reports = () => {
                       color: selectedReport.status === 'completed' ? '#10B981' : '#F59E0B',
                       fontWeight: '500'
                     }}>
-                      {selectedReport.status === 'completed' ? '✅ Concluído' : '⏳ Em Processamento'}
+                      {selectedReport.status === 'completed' ? 'Concluído' : 'Em Processamento'}
                     </span>
                   </div>
                 </div>
@@ -754,7 +754,7 @@ const Reports = () => {
                   onMouseOver={(e) => e.target.style.backgroundColor = '#059669'}
                   onMouseOut={(e) => e.target.style.backgroundColor = '#10B981'}
                 >
-                  📥 Download do Relatório
+                  Download do Relatório
                 </button>
               </div>
             </div>

@@ -144,11 +144,11 @@ const Settings = () => {
   };
 
   const tabs = [
-    { id: 'general', name: 'Geral', icon: '⚙️' },
-    { id: 'monitoring', name: 'Monitoramento', icon: '🌐' },
-    { id: 'alerts', name: 'Alertas', icon: '🚨' },
-    { id: 'analysis', name: 'Análise', icon: '📈' },
-    { id: 'api', name: 'API', icon: '🔌' }
+    { id: 'general', name: 'Geral', icon: '◉' },
+    { id: 'monitoring', name: 'Monitoramento', icon: '◈' },
+    { id: 'alerts', name: 'Alertas', icon: '■' },
+    { id: 'analysis', name: 'Análise', icon: '▓' },
+    { id: 'api', name: 'API', icon: '▲' }
   ];
 
   const renderGeneralSettings = () => (
@@ -251,9 +251,9 @@ const Settings = () => {
             cursor: 'pointer'
           }}
         >
-          <option value="dark">🌙 Escuro</option>
-          <option value="light">☀️ Claro</option>
-          <option value="auto">🔄 Automático</option>
+          <option value="dark">Escuro</option>
+          <option value="light">Claro</option>
+          <option value="auto">Automático</option>
         </select>
       </div>
 
@@ -391,10 +391,10 @@ const Settings = () => {
             cursor: 'pointer'
           }}
         >
-          <option value="debug">🔍 Debug</option>
-          <option value="info">ℹ️ Info</option>
-          <option value="warning">⚠️ Warning</option>
-          <option value="error">❌ Error</option>
+          <option value="debug">Debug</option>
+          <option value="info">Info</option>
+          <option value="warning">Warning</option>
+          <option value="error">Error</option>
         </select>
       </div>
 
@@ -556,7 +556,7 @@ const Settings = () => {
                 }}
                 style={{ width: '16px', height: '16px' }}
               />
-              {severity === 'high' ? '🚨 Alto' : severity === 'medium' ? '⚠️ Médio' : 'ℹ️ Baixo'}
+              {severity === 'high' ? 'Alto' : severity === 'medium' ? 'Médio' : 'Baixo'}
             </label>
           ))}
         </div>
@@ -893,7 +893,7 @@ const Settings = () => {
             onMouseOver={(e) => e.target.style.backgroundColor = '#DC2626'}
             onMouseOut={(e) => e.target.style.backgroundColor = '#EF4444'}
           >
-            🔄 Restaurar Padrão
+            Restaurar Padrão
           </button>
           
           <button
@@ -912,7 +912,7 @@ const Settings = () => {
             onMouseOver={(e) => e.target.style.backgroundColor = '#059669'}
             onMouseOut={(e) => e.target.style.backgroundColor = '#10B981'}
           >
-            💾 Salvar Configurações
+            Salvar Configurações
           </button>
         </div>
       </div>
@@ -929,17 +929,17 @@ const Settings = () => {
         }}>
           {saveStatus === 'success' && (
             <div style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', color: '#10B981', border: '1px solid rgba(16, 185, 129, 0.3)' }}>
-              ✅ Configurações salvas com sucesso!
+              Configurações salvas com sucesso!
             </div>
           )}
           {saveStatus === 'error' && (
             <div style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', color: '#EF4444', border: '1px solid rgba(239, 68, 68, 0.3)' }}>
-              ❌ Erro ao salvar configurações. Tente novamente.
+              Erro ao salvar configurações. Tente novamente.
             </div>
           )}
           {saveStatus === 'reset' && (
             <div style={{ backgroundColor: 'rgba(245, 158, 11, 0.1)', color: '#F59E0B', border: '1px solid rgba(245, 158, 11, 0.3)' }}>
-              🔄 Configurações restauradas para o padrão!
+              Configurações restauradas para o padrão!
             </div>
           )}
         </div>
