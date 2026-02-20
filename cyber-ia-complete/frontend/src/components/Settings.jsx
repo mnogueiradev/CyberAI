@@ -928,17 +928,17 @@ const Settings = () => {
           fontWeight: '500'
         }}>
           {saveStatus === 'success' && (
-            <div style={{ backgroundColor: 'rgba(16, 185, 129, 0.1)', color: '#10B981', border: '1px solid rgba(16, 185, 129, 0.3)' }}>
+            <div style={{ backgroundColor: '#1E293B', color: '#10B981', border: '1px solid #334155', padding: '1rem', borderRadius: '0.5rem' }}>
               Configurações salvas com sucesso!
             </div>
           )}
           {saveStatus === 'error' && (
-            <div style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', color: '#EF4444', border: '1px solid rgba(239, 68, 68, 0.3)' }}>
+            <div style={{ backgroundColor: '#1E293B', color: '#EF4444', border: '1px solid #334155', padding: '1rem', borderRadius: '0.5rem' }}>
               Erro ao salvar configurações. Tente novamente.
             </div>
           )}
           {saveStatus === 'reset' && (
-            <div style={{ backgroundColor: 'rgba(245, 158, 11, 0.1)', color: '#F59E0B', border: '1px solid rgba(245, 158, 11, 0.3)' }}>
+            <div style={{ backgroundColor: '#1E293B', color: '#F59E0B', border: '1px solid #334155', padding: '1rem', borderRadius: '0.5rem' }}>
               Configurações restauradas para o padrão!
             </div>
           )}

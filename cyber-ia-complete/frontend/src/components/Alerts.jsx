@@ -191,8 +191,8 @@ const Alerts = () => {
           </div>
 
           <div style={{
-            backgroundColor: 'rgba(239, 68, 68, 0.1)',
-            border: '1px solid rgba(239, 68, 68, 0.3)',
+            backgroundColor: '#1E293B',
+            border: '1px solid #334155',
             borderRadius: '0.75rem',
             padding: '1.5rem',
             textAlign: 'center'
@@ -211,8 +211,8 @@ const Alerts = () => {
           </div>
 
           <div style={{
-            backgroundColor: 'rgba(245, 158, 11, 0.1)',
-            border: '1px solid rgba(245, 158, 11, 0.3)',
+            backgroundColor: '#1E293B',
+            border: '1px solid #334155',
             borderRadius: '0.75rem',
             padding: '1.5rem',
             textAlign: 'center'
@@ -231,8 +231,8 @@ const Alerts = () => {
           </div>
 
           <div style={{
-            backgroundColor: 'rgba(16, 185, 129, 0.1)',
-            border: '1px solid rgba(16, 185, 129, 0.3)',
+            backgroundColor: '#1E293B',
+            border: '1px solid #334155',
             borderRadius: '0.75rem',
             padding: '1.5rem',
             textAlign: 'center'

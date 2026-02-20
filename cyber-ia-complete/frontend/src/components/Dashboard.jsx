@@ -115,7 +115,7 @@ const Dashboard = () => {
             width: '48px',
             height: '48px',
             borderRadius: '0.5rem',
-            backgroundColor: config.bg,
+            backgroundColor: '#1E293B',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
