@@ -78,16 +78,7 @@ const Alerts = () => {
   };
 
   const getSeverityIcon = (severity) => {
-    switch (severity) {
-      case 'high':
-        return '■';
-      case 'medium':
-        return '▲';
-      case 'low':
-        return '○';
-      default:
-        return '?';
-    }
+    return null;
   };
 
   const formatTimestamp = (timestamp) => {

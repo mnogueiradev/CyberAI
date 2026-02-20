@@ -12,25 +12,14 @@ const App = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   const navigation = [
-    { id: 'dashboard', name: 'Dashboard', icon: 'dashboard' },
-    { id: 'monitoring', name: 'Monitoramento', icon: 'network' },
-    { id: 'alerts', name: 'Alertas', icon: 'warning' },
-    { id: 'analysis', name: 'Análise', icon: 'analytics' },
-    { id: 'reports', name: 'Relatórios', icon: 'document' },
-    { id: 'settings', name: 'Configurações', icon: 'settings' }
+    { id: 'dashboard', name: 'Dashboard' },
+    { id: 'monitoring', name: 'Monitoramento' },
+    { id: 'alerts', name: 'Alertas' },
+    { id: 'analysis', name: 'Análise' },
+    { id: 'reports', name: 'Relatórios' },
+    { id: 'settings', name: 'Configurações' }
   ];
 
-  const getIcon = (iconName) => {
-    switch (iconName) {
-      case 'dashboard': return '▣';
-      case 'network': return '◉';
-      case 'warning': return '▲';
-      case 'analytics': return '▓';
-      case 'document': return '◈';
-      case 'settings': return '◉';
-      default: return '○';
-    }
-  };
 
   const getCurrentTime = () => {
     return new Date().toLocaleString('pt-BR', {
@@ -147,8 +136,7 @@ const App = () => {
                 }
               }}
             >
-              <span style={{ fontSize: '1.25rem' }}>{getIcon(item.icon)}</span>
-              {sidebarOpen && <span>{item.name}</span>}
+            {sidebarOpen && <span>{item.name}</span>}
             </button>
           ))}
         </nav>

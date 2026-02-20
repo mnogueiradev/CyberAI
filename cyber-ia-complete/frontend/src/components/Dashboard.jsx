@@ -266,7 +266,7 @@ const Dashboard = () => {
         <StatusCard
           title="Hosts Monitorados"
           value={networkStatus.hostsMonitored.toLocaleString()}
-          icon={<span style={{ fontSize: '1.5rem' }}>◉</span>}
+          icon={null}
           color="safe"
           subtitle="Dispositivos ativos"
         />
@@ -274,7 +274,7 @@ const Dashboard = () => {
         <StatusCard
           title="Ameaças Detectadas"
           value={networkStatus.threatsDetected.toLocaleString()}
-          icon={<span style={{ fontSize: '1.5rem' }}>▲</span>}
+          icon={null}
           color={networkStatus.threatsDetected > 0 ? 'danger' : 'safe'}
           subtitle={`${threatPercentage.toFixed(1)}% do total`}
         />
@@ -282,7 +282,7 @@ const Dashboard = () => {
         <StatusCard
           title="Tráfego/Segundo"
           value={networkStatus.trafficPerSecond.toLocaleString()}
-          icon={<span style={{ fontSize: '1.5rem' }}>▓</span>}
+          icon={null}
           color="warning"
           subtitle="Pacotes em tempo real"
         />
@@ -290,7 +290,7 @@ const Dashboard = () => {
         <StatusCard
           title="Top Protocolos"
           value={networkStatus.topProtocols.length}
-          icon={<span style={{ fontSize: '1.5rem' }}>◈</span>}
+          icon={null}
           color="safe"
           subtitle={networkStatus.topProtocols.slice(0, 3).join(', ')}
         />
@@ -327,7 +327,7 @@ const Dashboard = () => {
               padding: '2rem',
               color: '#9CA3AF' 
             }}>
-              <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}>○</div>
+              <div style={{ fontSize: '2rem', marginBottom: '0.5rem' }}></div>
               <p>Nenhum alerta recente</p>
             </div>
           )}

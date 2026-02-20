@@ -183,14 +183,7 @@ const Reports = () => {
   };
 
   const getTypeIcon = (type) => {
-    switch (type) {
-      case 'summary': return '▓';
-      case 'alerts': return '■';
-      case 'hosts': return '◉';
-      case 'protocols': return '◈';
-      case 'performance': return '▲';
-      default: return '○';
-    }
+    return null;
   };
 
   const formatDate = (dateString) => {
@@ -412,7 +405,7 @@ const Reports = () => {
             borderRadius: '0.75rem',
             color: '#9CA3AF'
           }}>
-            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>◈</div>
+            <div style={{ fontSize: '3rem', marginBottom: '1rem' }}></div>
             <p style={{ fontSize: '1.125rem', marginBottom: '0.5rem' }}>
               Nenhum relatório encontrado
             </p>

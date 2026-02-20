@@ -53,16 +53,7 @@ const Monitoring = () => {
   };
 
   const getStatusIcon = (status) => {
-    switch (status) {
-      case 'safe':
-        return '◉';
-      case 'suspicious':
-        return '▲';
-      case 'dangerous':
-        return '■';
-      default:
-        return '○';
-    }
+    return null;
   };
 
   if (loading) {

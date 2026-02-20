@@ -144,11 +144,11 @@ const Settings = () => {
   };
 
   const tabs = [
-    { id: 'general', name: 'Geral', icon: '◉' },
-    { id: 'monitoring', name: 'Monitoramento', icon: '◈' },
-    { id: 'alerts', name: 'Alertas', icon: '■' },
-    { id: 'analysis', name: 'Análise', icon: '▓' },
-    { id: 'api', name: 'API', icon: '▲' }
+    { id: 'general', name: 'Geral' },
+    { id: 'monitoring', name: 'Monitoramento' },
+    { id: 'alerts', name: 'Alertas' },
+    { id: 'analysis', name: 'Análise' },
+    { id: 'api', name: 'API' }
   ];
 
   const renderGeneralSettings = () => (
@@ -985,7 +985,7 @@ const Settings = () => {
                     }
                   }}
                 >
-                  <span style={{ fontSize: '1rem' }}>{tab.icon}</span>
+                  <span style={{ fontSize: '1.25rem' }}></span>
                   {tab.name}
                 </button>
               ))}

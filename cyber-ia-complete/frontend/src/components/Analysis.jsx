@@ -75,7 +75,7 @@ const Analysis = () => {
         color: '#9CA3AF'
       }}>
         <div style={{ textAlign: 'center' }}>
-          <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>▓</div>
+          <div style={{ fontSize: '3rem', marginBottom: '1rem' }}></div>
           <p style={{ fontSize: '1.125rem', marginBottom: '0.5rem' }}>
             Dados de análise não disponíveis
           </p>
@@ -189,7 +189,7 @@ const Analysis = () => {
               justifyContent: 'center',
               marginRight: '1rem'
             }}>
-              <span style={{ fontSize: '1.25rem' }}>▓</span>
+              <span style={{ fontSize: '1.25rem' }}></span>
             </div>
             <div>
               <p style={{ color: '#9CA3AF', fontSize: '0.875rem', margin: 0 }}>
@@ -224,7 +224,7 @@ const Analysis = () => {
               justifyContent: 'center',
               marginRight: '1rem'
             }}>
-              <span style={{ fontSize: '1.25rem' }}>▲</span>
+              <span style={{ fontSize: '1.25rem' }}></span>
             </div>
             <div>
               <p style={{ color: '#9CA3AF', fontSize: '0.875rem', margin: 0 }}>
@@ -259,7 +259,7 @@ const Analysis = () => {
               justifyContent: 'center',
               marginRight: '1rem'
             }}>
-              <span style={{ fontSize: '1.25rem' }}>▓</span>
+              <span style={{ fontSize: '1.25rem' }}></span>
             </div>
             <div>
               <p style={{ color: '#9CA3AF', fontSize: '0.875rem', margin: 0 }}>
@@ -294,7 +294,7 @@ const Analysis = () => {
               justifyContent: 'center',
               marginRight: '1rem'
             }}>
-              <span style={{ fontSize: '1.25rem' }}>◉</span>
+              <span style={{ fontSize: '1.25rem' }}></span>
             </div>
             <div>
               <p style={{ color: '#9CA3AF', fontSize: '0.875rem', margin: 0 }}>
