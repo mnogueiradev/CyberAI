@@ -57,6 +57,52 @@ def get_summary():
     report = load_report()
     return report.get("summary", {})
 
+@app.get("/dashboard/real-data")
+def get_dashboard_real_data():
+    """Dados reais calculados do CSV para o Dashboard"""
+    try:
+        df = load_csv_data()
+        
+        # Calcular métricas reais
+        total_events = len(df)
+        anomalies_detected = df['final_anomaly'].sum() if 'final_anomaly' in df.columns else 0
+        
+        # Calcular tráfego real (pacotes por segundo)
+        if 'rate' in df.columns:
+            avg_rate = df['rate'].mean()
+        else:
+            # Calcular baseado em spkts + dpkts / dur
+            if 'spkts' in df.columns and 'dpkts' in df.columns and 'dur' in df.columns:
+                total_packets = (df['spkts'] + df['dpkts']).sum()
+                total_duration = df['dur'].sum()
+                avg_rate = total_packets / total_duration if total_duration > 0 else 0
+            else:
+                avg_rate = 0
+        
+        # Calcular protocolos mais comuns (baseado em labels)
+        if 'label' in df.columns:
+            protocol_counts = df['label'].value_counts()
+            top_protocols = protocol_counts.head(5).index.tolist()
+        else:
+            top_protocols = ['TCP', 'UDP', 'HTTP', 'HTTPS', 'DNS']
+        
+        return {
+            "status": "warning" if anomalies_detected > 0 else "safe",
+            "hostsMonitored": total_events,
+            "threatsDetected": int(anomalies_detected),
+            "trafficPerSecond": round(avg_rate, 2),
+            "topProtocols": top_protocols
+        }
+    except Exception as e:
+        print(f"Error calculating dashboard data: {e}")
+        return {
+            "status": "safe",
+            "hostsMonitored": 0,
+            "threatsDetected": 0,
+            "trafficPerSecond": 0,
+            "topProtocols": ["TCP", "UDP", "HTTP", "HTTPS", "DNS"]
+        }
+
 @app.get("/results")
 def get_results():
     """Lista completa de hosts analisados"""

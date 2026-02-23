@@ -11,22 +11,9 @@ export const apiService = {
   // Dashboard
   async getNetworkStatus() {
     try {
-      const [summaryResponse, resultsResponse] = await Promise.all([
-        api.get('/summary'),
-        api.get('/results')
-      ]);
-      
-      const summary = summaryResponse.data;
-      const results = resultsResponse.data;
-      
-      // Transformar dados para o formato esperado pelo Dashboard
-      return {
-        status: summary.anomalies_detected > 0 ? 'warning' : 'safe',
-        hostsMonitored: results.length || 0,
-        threatsDetected: summary.anomalies_detected || 0,
-        trafficPerSecond: Math.floor(Math.random() * 1000) + 500, // Mock
-        topProtocols: ['HTTP', 'HTTPS', 'TCP', 'UDP', 'DNS']
-      };
+      // Usar dados reais do novo endpoint
+      const response = await api.get('/dashboard/real-data');
+      return response.data;
     } catch (error) {
       console.error('Error fetching network status:', error);
       throw error;
