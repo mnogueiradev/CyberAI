@@ -1,0 +1,122 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+env/
+.venv-new/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Node.js (for frontend)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# React build
+frontend/build/
+frontend/dist/
+
+# Coverage reports
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# Environments
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# Data files (too large for container)
+Data/Datasets/**/*.pcap
+Data/Raw/**/*.pcap
+Data/Raw/**/*.zip
+Data/Raw/**/*.tar.gz
+
+# Models (can be regenerated)
+models/*.joblib
+models/*.h5
+models/*.pkl
+models/auto_model/
+
+# Reports (can be regenerated)
+reports/*.json
+reports/*.csv
+reports/*.html
+
+# Documentation
+*.md
+!README.md
+
+# Scripts
+analisar_csv.bat
+debug_teste_csv.py
+quick_check.py
+verificar_csv.py
+csv_viewer.py
+csv_viewer_simple.py
+nmap_to_csv.py
