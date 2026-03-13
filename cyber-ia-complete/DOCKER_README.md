@@ -1,17 +1,38 @@
 # Cyber IA - Docker Setup
 
-## 🐳 Docker Quick Start
+## � Pré-requisitos
+
+### **OBRIGATÓRIO: Docker Desktop**
+- **Windows**: https://www.docker.com/products/docker-desktop/
+- **Mac**: https://www.docker.com/products/docker-desktop/
+- **Linux**: https://docs.docker.com/engine/install/
+
+### **Verificar Instalação**
+```bash
+# Verificar se Docker está instalado
+docker --version
+
+# Verificar se Docker Compose está disponível
+docker compose version
+```
+
+### **Se Docker não estiver instalado:**
+1. Baixe e instale Docker Desktop para seu sistema operacional
+2. Reinicie seu computador após a instalação
+3. Abra Docker Desktop e aguarde inicialização completa
+4. Verifique instalação com os comandos acima
+
+**⚠️ IMPORTANTE**: Sem Docker instalado, os comandos abaixo não funcionarão!
+
+---
+
+## � Docker Quick Start
 
 Execute o sistema completo com um único comando:
 
 ```bash
 docker-compose up --build
 ```
-
-## 📋 Pré-requisitos
-
-- **Docker** >= 20.10
-- **Docker Compose** >= 2.0
 
 ## 🚀 Como Usar
 
