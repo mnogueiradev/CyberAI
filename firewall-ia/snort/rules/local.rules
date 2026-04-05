@@ -1,0 +1,163 @@
+# Custom Snort Rules for Firewall IA
+# These rules detect common attack patterns and generate alerts for ML training
+
+#--------------------------------------------------
+# Port Scan Detection
+#--------------------------------------------------
+
+# Detect TCP SYN scan (half-open scan)
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"PORT_SCAN TCP SYN Scan Detected"; flags:S; threshold:type both,track by_src,count 30,seconds 60; classtype:attempted-recon; sid:1000001; rev:1;)
+
+# Detect TCP connect scan
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"PORT_SCAN TCP Connect Scan Detected"; flags:SF; threshold:type both,track by_src,count 20,seconds 60; classtype:attempted-recon; sid:1000002; rev:1;)
+
+# Detect UDP port scan
+alert udp $EXTERNAL_NET any -> $HOME_NET any (msg:"PORT_SCAN UDP Scan Detected"; threshold:type both,track by_src,count 30,seconds 60; classtype:attempted-recon; sid:1000003; rev:1;)
+
+# Detect FIN scan (stealth scan)
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"PORT_SCAN TCP FIN Scan Detected"; flags:F; threshold:type both,track by_src,count 20,seconds 60; classtype:attempted-recon; sid:1000004; rev:1;)
+
+# Detect NULL scan
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"PORT_SCAN TCP NULL Scan Detected"; flags:0; threshold:type both,track by_src,count 20,seconds 60; classtype:attempted-recon; sid:1000005; rev:1;)
+
+# Detect XMAS scan
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"PORT_SCAN TCP XMAS Scan Detected"; flags:FPU; threshold:type both,track by_src,count 20,seconds 60; classtype:attempted-recon; sid:1000006; rev:1;)
+
+#--------------------------------------------------
+# Brute Force Attack Detection
+#--------------------------------------------------
+
+# SSH brute force attempt
+alert tcp $EXTERNAL_NET any -> $HOME_NET 22 (msg:"BRUTE_FORCE SSH Brute Force Attempt"; flow:to_server; threshold:type both,track by_src,count 5,seconds 60; classtype:attempted-admin; sid:1000010; rev:1;)
+
+# FTP brute force attempt
+alert tcp $EXTERNAL_NET any -> $HOME_NET 21 (msg:"BRUTE_FORCE FTP Brute Force Attempt"; flow:to_server; threshold:type both,track by_src,count 5,seconds 60; classtype:attempted-admin; sid:1000011; rev:1;)
+
+# Telnet brute force attempt
+alert tcp $EXTERNAL_NET any -> $HOME_NET 23 (msg:"BRUTE_FORCE Telnet Brute Force Attempt"; flow:to_server; threshold:type both,track by_src,count 5,seconds 60; classtype:attempted-admin; sid:1000012; rev:1;)
+
+# SMTP authentication brute force
+alert tcp $EXTERNAL_NET any -> $HOME_NET 25 (msg:"BRUTE_FORCE SMTP Auth Brute Force"; flow:to_server,content:"AUTH"; nocase; threshold:type both,track by_src,count 5,seconds 60; classtype:attempted-admin; sid:1000013; rev:1;)
+
+# MySQL brute force attempt
+alert tcp $EXTERNAL_NET any -> $HOME_NET 3306 (msg:"BRUTE_FORCE MySQL Brute Force Attempt"; flow:to_server; threshold:type both,track by_src,count 5,seconds 60; classtype:attempted-admin; sid:1000014; rev:1;)
+
+# RDP brute force attempt
+alert tcp $EXTERNAL_NET any -> $HOME_NET 3389 (msg:"BRUTE_FORCE RDP Brute Force Attempt"; flow:to_server; threshold:type both,track by_src,count 5,seconds 60; classtype:attempted-admin; sid:1000015; rev:1;)
+
+#--------------------------------------------------
+# DDoS Attack Detection
+#--------------------------------------------------
+
+# SYN flood detection
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"DDoS SYN Flood Detected"; flags:S; threshold:type both,track by_src,count 100,seconds 10; classtype:attempted-dos; sid:1000020; rev:1;)
+
+# UDP flood detection
+alert udp $EXTERNAL_NET any -> $HOME_NET any (msg:"DDoS UDP Flood Detected"; threshold:type both,track by_src,count 100,seconds 10; classtype:attempted-dos; sid:1000021; rev:1;)
+
+# ICMP flood detection
+alert icmp $EXTERNAL_NET any -> $HOME_NET any (msg:"DDoS ICMP Flood Detected"; itype:8; threshold:type both,track by_src,count 100,seconds 10; classtype:attempted-dos; sid:1000022; rev:1;)
+
+# HTTP flood detection
+alert tcp $EXTERNAL_NET any -> $HOME_NET $HTTP_PORTS (msg:"DDoS HTTP Flood Detected"; flow:to_server; content:"GET"; http_method; threshold:type both,track by_src,count 100,seconds 10; classtype:attempted-dos; sid:1000023; rev:1;)
+
+# DNS amplification attack
+alert udp $EXTERNAL_NET 53 -> $HOME_NET any (msg:"DDoS DNS Amplification Attack"; dsize:>512; threshold:type both,track by_src,count 50,seconds 10; classtype:attempted-dos; sid:1000024; rev:1;)
+
+#--------------------------------------------------
+# Malware and Exploit Detection
+#--------------------------------------------------
+
+# Suspicious executable download
+alert tcp $HOME_NET any -> $EXTERNAL_NET $HTTP_PORTS (msg:"MALWARE Suspicious Executable Download"; flow:established,to_client; content:".exe"; http_uri; nocase; classtype:trojan-activity; sid:1000030; rev:1;)
+
+# PowerShell download cradle
+alert tcp $HOME_NET any -> $EXTERNAL_NET any (msg:"MALWARE PowerShell Download Cradle"; flow:established; content:"powershell"; nocase; content:"-enc"; nocase; classtype:trojan-activity; sid:1000031; rev:1;)
+
+# Reverse shell attempt
+alert tcp $HOME_NET any -> $EXTERNAL_NET any (msg:"MALWARE Reverse Shell Attempt"; flow:established; content:"/bin/sh"; classtype:trojan-activity; sid:1000032; rev:1;)
+
+# Metasploit default payload
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"EXPLOIT Metasploit Default Payload"; content:"|e8 dc 00 00 00|"; classtype:shellcode-detect; sid:1000033; rev:1;)
+
+# SQL injection attempt
+alert tcp $EXTERNAL_NET any -> $HOME_NET $HTTP_PORTS (msg:"EXPLOIT SQL Injection Attempt"; flow:to_server; content:"UNION"; nocase; content:"SELECT"; nocase; distance:0; classtype:web-application-attack; sid:1000034; rev:1;)
+
+# XSS attack attempt
+alert tcp $EXTERNAL_NET any -> $HOME_NET $HTTP_PORTS (msg:"EXPLOIT XSS Attack Attempt"; flow:to_server; content:"<script>"; nocase; classtype:web-application-attack; sid:1000035; rev:1;)
+
+# Directory traversal attempt
+alert tcp $EXTERNAL_NET any -> $HOME_NET $HTTP_PORTS (msg:"EXPLOIT Directory Traversal Attempt"; flow:to_server; content:"../"; content:"../"; distance:0; classtype:web-application-attack; sid:1000036; rev:1;)
+
+# Command injection attempt
+alert tcp $EXTERNAL_NET any -> $HOME_NET $HTTP_PORTS (msg:"EXPLOIT Command Injection Attempt"; flow:to_server; pcre:"/[;&|`$]/"; content:"/bin/"; classtype:web-application-attack; sid:1000037; rev:1;)
+
+#--------------------------------------------------
+# Network Reconnaissance
+#--------------------------------------------------
+
+# Nmap OS detection attempt
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"RECON Nmap OS Detection"; flags:SFPU; threshold:type both,track by_src,count 5,seconds 60; classtype:attempted-recon; sid:1000040; rev:1;)
+
+# ICMP ping sweep
+alert icmp $EXTERNAL_NET any -> $HOME_NET any (msg:"RECON ICMP Ping Sweep"; itype:8; threshold:type both,track by_src,count 20,seconds 60; classtype:attempted-recon; sid:1000041; rev:1;)
+
+# DNS zone transfer attempt
+alert tcp $EXTERNAL_NET any -> $HOME_NET 53 (msg:"RECON DNS Zone Transfer Attempt"; flow:to_server; content:"|00 00 FC|"; classtype:attempted-recon; sid:1000042; rev:1;)
+
+# SNMP community string scan
+alert udp $EXTERNAL_NET any -> $HOME_NET 161 (msg:"RECON SNMP Community String Scan"; content:"public"; classtype:attempted-recon; sid:1000043; rev:1;)
+
+# SMB enumeration attempt
+alert tcp $EXTERNAL_NET any -> $HOME_NET 445 (msg:"RECON SMB Enumeration Attempt"; flow:to_server; content:"|FF|SMB"; offset:4; depth:4; threshold:type both,track by_src,count 10,seconds 60; classtype:attempted-recon; sid:1000044; rev:1;)
+
+#--------------------------------------------------
+# Data Exfiltration Detection
+#--------------------------------------------------
+
+# Large outbound data transfer
+alert tcp $HOME_NET any -> $EXTERNAL_NET any (msg:"EXFIL Large Outbound Data Transfer"; flow:established,to_server; dsize:>10000; threshold:type both,track by_src,count 10,seconds 60; classtype:policy-violation; sid:1000050; rev:1;)
+
+# DNS tunneling detection
+alert udp $HOME_NET any -> any 53 (msg:"EXFIL DNS Tunneling Suspected"; dsize:>512; threshold:type both,track by_src,count 20,seconds 60; classtype:policy-violation; sid:1000051; rev:1;)
+
+# Unusual port usage for data transfer
+alert tcp $HOME_NET any -> $EXTERNAL_NET !80 (msg:"EXFIL Data Transfer on Unusual Port"; flow:established,to_server; dsize:>5000; threshold:type both,track by_src,count 5,seconds 60; classtype:policy-violation; sid:1000052; rev:1;)
+
+# Base64 encoded data in HTTP request
+alert tcp $HOME_NET any -> $EXTERNAL_NET $HTTP_PORTS (msg:"EXFIL Base64 Encoded Data in HTTP"; flow:established,to_server; pcre:"/[A-Za-z0-9+\/]{50,}={0,2}/"; classtype:policy-violation; sid:1000053; rev:1;)
+
+#--------------------------------------------------
+# Protocol Anomalies
+#--------------------------------------------------
+
+# Invalid TCP flag combination
+alert tcp $EXTERNAL_NET any -> $HOME_NET any (msg:"ANOMALY Invalid TCP Flags"; flags:SPU; classtype:bad-unknown; sid:1000060; rev:1;)
+
+# Fragmented packet with small offset
+alert ip $EXTERNAL_NET any -> $HOME_NET any (msg:"ANOMALY Fragmented Packet Small Offset"; fragbits:M; fragoffset:<100; classtype:bad-unknown; sid:1000061; rev:1;)
+
+# Oversized ICMP packet
+alert icmp $EXTERNAL_NET any -> $HOME_NET any (msg:"ANOMALY Oversized ICMP Packet"; dsize:>800; itype:8; classtype:bad-unknown; sid:1000062; rev:1;)
+
+# IP option set (potential evasion)
+alert ip $EXTERNAL_NET any -> $HOME_NET any (msg:"ANOMALY IP Options Set"; ipopts:any; classtype:bad-unknown; sid:1000063; rev:1;)
+
+#--------------------------------------------------
+# Specific Service Attacks
+#--------------------------------------------------
+
+# Apache Struts exploit attempt
+alert tcp $EXTERNAL_NET any -> $HOME_NET $HTTP_PORTS (msg:"EXPLOIT Apache Struts RCE Attempt"; flow:to_server; content:"Content-Type"; http_header; content:"multipart"; distance:0; content:"#context"; nocase; distance:0; classtype:web-application-attack; sid:1000070; rev:1;)
+
+# Log4j JNDI injection attempt
+alert tcp $EXTERNAL_NET any -> $HOME_NET $HTTP_PORTS (msg:"EXPLOIT Log4j JNDI Injection Attempt"; flow:to_server; content:"${jndi:"; nocase; classtype:web-application-attack; sid:1000071; rev:1;)
+
+# Heartbleed exploit attempt
+alert tcp $EXTERNAL_NET any -> $HOME_NET 443 (msg:"EXPLOIT Heartbleed Attempt"; content:"|18 03|"; depth:2; offset:0; classtype:attempted-admin; sid:1000072; rev:1;)
+
+# Shellshock exploit attempt
+alert tcp $EXTERNAL_NET any -> $HOME_NET $HTTP_PORTS (msg:"EXPLOIT Shellshock Attempt"; flow:to_server; content:"() {"; content:":;"; distance:0; classtype:web-application-attack; sid:1000073; rev:1;)
+
+# EternalBlue SMB exploit
+alert tcp $EXTERNAL_NET any -> $HOME_NET 445 (msg:"EXPLOIT EternalBlue SMB Exploit"; flow:to_server; content:"|00 00 00|&|ff|SMB"; offset:4; depth:8; content:"|00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00|"; distance:0; within:20; classtype:attempted-admin; sid:1000074; rev:1;)
