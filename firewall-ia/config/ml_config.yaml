@@ -1,0 +1,47 @@
+# ML Configuration for Firewall IA
+
+model:
+  type: random_forest  # Options: random_forest, gradient_boosting
+  n_estimators: 100
+  max_depth: 20
+  min_samples_split: 5
+  min_samples_leaf: 2
+  class_weight: balanced
+  random_state: 42
+
+training:
+  test_size: 0.2
+  validation_size: 0.1
+  use_smote: true
+  cross_validation_folds: 5
+  
+features:
+  include_time_features: true
+  include_ip_features: true
+  include_port_features: true
+  include_protocol_features: true
+  
+detection:
+  confidence_threshold: 0.5
+  auto_block: false
+  block_duration: 3600  # seconds
+  
+data:
+  raw_path: /data/raw
+  processed_path: /data/processed
+  alerts_file: alerts_parsed.json
+  features_file: features.csv
+  
+paths:
+  model_output: /models/threat_detector.pkl
+  reports_output: /reports
+  blocked_ips: /app/data/blocked_ips
+
+logging:
+  level: INFO
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  
+api:
+  host: 0.0.0.0
+  port: 8000
+  cors_origins: ["*"]
